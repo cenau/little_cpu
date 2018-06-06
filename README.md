@@ -5,10 +5,10 @@
 8 bit address space 
 load/store design (everything operates on register A) 
 
-type 0 commands are OPCODE (4 bit) - they take no operands and produce no side effects
-type 1 commands are OPCODE (4 bit) and ADDRESS (8 bit)
-type 2 commands are OPCODE (4 bit) and use the value in REGISTER A as an operand
-type 3 commands are OPCODE (4 bit) and use the 4 most significant bits in REGISTER A as HARDWARE ADDRESS and the 4 least significant bits as the HARDWARE COMMAND ( so can address 16 pieces of hardware, and 16 things in each ) 
+type 0 commands are OPCODE (8 bit) - they take no operands and produce no side effects
+type 1 commands are OPCODE (8 bit) and ADDRESS (8 bit)
+type 2 commands are OPCODE (8 bit) and use the value in REGISTER A as an operand
+type 3 commands are OPCODE (8 bit) and use the value in REGISTER A as HARDWARE ADDRESS and the value in ADDRESS as HARDWARE COMMAND ( so can address 256 pieces of hardware, and 256 things in each ) 
 
 command	opcode	type	description 
 NOP	0x0 	0	do nothing
@@ -24,7 +24,7 @@ JE	0x9	2	jump if equal ( ie EQ == 1)
 JNE	0xA	2	jump if not equal
 JG	0xB	2	jump if greater (ie, EQ ==0 AND EM == 1)
 JL	0xC	2	jump if less (ie, EQ == 0 AND EM == 0)
-IN 	0xD	3       get value at HARDWARE COMMAND (REG A 4 LSB) from hardware at HARDWARE ADDRESS ( REG A 4 MSB )
+IN 	0xD	3       get value at HARDWARE COMMAND (in ADDRESS) from hardware at HARDWARE ADDRESS ( in REGISTER A )
 OUT	0XE	3
 LIT	0XF	4  	set REGISTER A to VALUE 
 
