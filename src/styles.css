@@ -1,6 +1,13 @@
+.container {
+    display: grid;
+    grid-template-columns: 50% 1fr;
+    grid-gap: 10px;
+}
+
+
 .memory {
     display: grid;
-    grid-template-columns: repeat(30, 1fr);
+    grid-template-columns: repeat(16, 1fr);
     grid-gap: 10px;
 }
 .memory li {
@@ -11,4 +18,10 @@
 
 .memory .active {
 	background:coral;
-}	
+}
+
+canvas {
+	width:256px;
+	height:256px;
+	background-color:black;
+}

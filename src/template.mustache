@@ -1,15 +1,25 @@
-<h1>{{header}}</h1>
+<div class = "container">
 
-<div class = "registers">
-	<p>PC:{{#wrapped}}{{mainCpu.pc}}{{/wrapped}}</p>
+	<div class = "debug_pane"> 
+		<h2>{{header}}</h2>
 
-	{{#mainCpu.registers.general}}
-		<p>REGISTER {{name}}:{{#wrapped}}{{value}}{{/wrapped}}</p>
-	{{/mainCpu.registers.general}}
+		<div class = "registers">
+			<p>PC:{{#wrapped}}{{mainCpu.pc}}{{/wrapped}}</p>
 
-</div>
-<div class = "memory">
-	{{#mainCpu.memory}}
-	<li class = "memcell">{{#wrapped}}{{.}}{{/wrapped}}</li>
-	{{/mainCpu.memory}}
+			{{#mainCpu.registers.general}}
+				<p>REGISTER {{name}}:{{#wrapped}}{{value}}{{/wrapped}}</p>
+			{{/mainCpu.registers.general}}
+
+		</div>
+		<div class = "memory">
+			{{#mainCpu.memory}}
+			<li class = "memcell">{{#wrapped}}{{.}}{{/wrapped}}</li>
+			{{/mainCpu.memory}}
+		</div>
+	</div>
+
+	<div class = "display_pane">
+		<h2>DISPLAY</h2>
+		<canvas></canvas>
+	</div>
 </div>
