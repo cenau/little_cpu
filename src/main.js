@@ -31,7 +31,7 @@ function startApp() {
         number = Number(this)
       }
 
-      const hex = "0x" + number.toString(16).toUpperCase()
+      const hex = "0x" + (number.toString(16).toUpperCase().padStart(2,'0'))
       return hex
     }
   }
