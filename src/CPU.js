@@ -4,7 +4,7 @@ class CPU {
     this.reset();
   }
   reset() {
-    this.memory = new Array(4096).fill(0);
+    this.memory = new Array(256).fill(0);
     this.pc=0;
     this.registers = {
         general: [
