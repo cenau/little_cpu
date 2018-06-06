@@ -1,0 +1,14 @@
+.memory {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    grid-gap: 10px;
+}
+.memory li {
+	float:left;
+	list-style:none;
+
+}
+
+.memory .active {
+	background:coral;
+}	
