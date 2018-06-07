@@ -1,0 +1,17 @@
+
+		<h2>{{header}}</h2>
+
+		<div class = "registers">
+			<p>PC:{{#wrapped}}{{mainCpu.pc}}{{/wrapped}}</p>
+
+			{{#mainCpu.registers.general}}
+				<p>REGISTER {{name}}:{{#wrapped}}{{value}}{{/wrapped}}</p>
+			{{/mainCpu.registers.general}}
+
+		</div>
+		<div class = "memory">
+			{{#mainCpu.memory}}
+			<li class = "memcell">{{#wrapped}}{{.}}{{/wrapped}}</li>
+			{{/mainCpu.memory}}
+		</div>
+

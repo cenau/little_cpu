@@ -9,6 +9,7 @@ class CPU {
     this.registers = {
         general: [
             {name:"A",value:0}
+            {name:"B",value:0}
                      
                 ],
         equality: [
@@ -17,6 +18,7 @@ class CPU {
                  ]
 
   }
+    this.hardwareBus = new Array(256).fill(0)
     this.ops  = {
         "opcodes":[
             {mnemonic:"NOP",opcode:0x0,args:0,action:"wait"}, 
@@ -46,7 +48,6 @@ class CPU {
         .filter(op => op.opcode==opcode)[0] //look up opcode :TODO currently ignores duplicates and just takes first; should handle as error? 
         .action //get action
 
-    console.log(opcode, action)
     
     let args = this.memory
         .slice(this.pc+1,
@@ -57,7 +58,6 @@ class CPU {
               )
 
   this[action].apply(this,args)
-  console.log(this.registers.general[0])
   }
 
 
@@ -73,12 +73,14 @@ class CPU {
   }
 
   setRegister(literal){
-    this.registers.general.filter(register => register.name=="A")[0].value = literal;
+    this.register("A").value = literal;
     this.pc +=2;
   }
   add(address){
-    this.registers.general.filter(register => register.name=="A")[0].value += this.memory[address]
-    
+    this.register("A").value = (this.register("A").value + this.memory[address]) % 256 
+   
+    console.log(this.registers.general.filter(register => register.name=="A")[0].value)
+
     this.pc +=2;
   }
 
@@ -87,18 +89,23 @@ class CPU {
   }
 
   load(address){
-    this.registers.general.filter(register => register.name=="A")[0].value = this.memory[address];
+    this.register("B").value = this.register("A").value
+    this.register("A").value = this.memory[address];
     this.pc +=2;
   }
   store(address){
 
-    this.memory[address] = this.registers.general.filter(register => register.name=="A")[0].value;
-    this.registers.general.filter(register => register.name=="A")[0].value = 0; 
+    this.memory[address] = this.register("A").value;
+    this.register("A").value = this.register("B").value;
+    this.register("B").value = 0x0;
     
     this.pc +=2;
   }
 
-
+//register helper
+    register(name){
+      return this.registers.general.filter(register => register.name==name)[0] 
+}
 }
 
 
