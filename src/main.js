@@ -65,17 +65,44 @@ function startApp() {
   document.body.getElementsByClassName("registers")[0].appendChild(testButton)
 
 
-  mainCpu.memory[0x7F] = 0xFF
-  mainCpu.memory[100] = 0x1
+  //letters
+  mainCpu.memory[0x7F] = 0b10000001
+  mainCpu.memory[0x80] = 0b10000001
+  mainCpu.memory[0x81] = 0b10000001
+  mainCpu.memory[0x82] = 0b11111111
+  mainCpu.memory[0x83] = 0b11111111
+  mainCpu.memory[0x84] = 0b10000001
+  mainCpu.memory[0x85] = 0b10000001
+  mainCpu.memory[0x86] = 0b10000001
 
-  mainCpu.memory[2] = 0x1
-  mainCpu.memory[3] = 0x7F
-  mainCpu.memory[4] = 0x3
-  mainCpu.memory[5] = 100
-  mainCpu.memory[6] = 0x2
-  mainCpu.memory[7] = 0x7F
-  mainCpu.memory[8] = 0xF
-  mainCpu.memory[9] = 0x2
-  mainCpu.memory[10] = 0x8
+
+  mainCpu.memory[0x8F] = 0b11111111
+  mainCpu.memory[0x90] = 0b00011000
+  mainCpu.memory[0x91] = 0b00011000
+  mainCpu.memory[0x92] = 0b00011000
+  mainCpu.memory[0x93] = 0b00011000
+  mainCpu.memory[0x94] = 0b00011000
+  mainCpu.memory[0x95] = 0b00011000
+  mainCpu.memory[0x96] = 0b11111111
+
+  //prog 
+  mainCpu.memory[0x0] = 0x0 //to get over 1st step bug
+  
+  //set A to where the second letter starts
+  mainCpu.memory[0x1] = 0xF 
+  mainCpu.memory[0x2] = 0x8F
+
+  // store 0x8F from A into 0XFF
+  mainCpu.memory[0x3] = 0x2
+  mainCpu.memory[0x4] = 0xFF
+
+  //set A to 0x1 ( the map-offset command in the display)
+  mainCpu.memory[0x5] = 0xF
+  mainCpu.memory[0x6] = 0x1
+
+  //tell 0x0 (the display) to offset to 0xFF, where 0x8F is stored
+  mainCpu.memory[0x7] = 0xE
+  mainCpu.memory[0x8] = 0xFF
+
 }
 

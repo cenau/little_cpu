@@ -18,7 +18,7 @@ class CPU {
                  ]
 
   }
-    this.hardwareBus = new Array(256).fill(0)
+    this.hardwareBus = []
     this.ops  = {
         "opcodes":[
             {mnemonic:"NOP",opcode:0x0,args:0,action:"wait"}, 
@@ -70,6 +70,17 @@ class CPU {
   }
   wait() {
     this.pc++;
+  }
+
+  
+  hardwareOut(address){
+
+    let command = this.memory[address]
+    this.hardwareBus[0] = this.register("B").value
+    this.hardwareBus[1] = this.register("A").value
+    this.hardwareBus[2] = command
+    
+    this.pc +=2;
   }
 
   setRegister(literal){

@@ -5,6 +5,12 @@ class Display {
     this.address = 0x0
     this.memoryPointer = 0x7F
     this.cpu = cpu
+    this.ops  = {
+        "opcodes":[
+            {mnemonic:"MAP",opcode:0x0,args:1,action:"map_memory"},
+            {mnemonic:"OFFSET",opcode:0x1,args:1,action:"map_memory_offset"},
+        ]
+    }
   }
   
   init(ctx){
@@ -21,6 +27,9 @@ class Display {
   }
 
   step(){
+    if (this.cpu.hardwareBus[0] == this.address) {
+      this.processCommand(this.cpu.hardwareBus[1], this.cpu.hardwareBus[2])
+    }
     this.memory = [];  ;
     this.rawMemory = this.cpu.memory.slice(this.memoryPointer,this.memoryPointer+8)
     this.rawMemory.forEach(each => {
@@ -31,8 +40,22 @@ class Display {
   }
   
 
+   processCommand(opcode,operand){
+    this.cpu.hardwareBus = [];
+    let action = this.ops["opcodes"] 
+        .filter(op => op.opcode==opcode)[0] //look up opcode :TODO currently ignores duplicates and just takes first; should handle as error? 
+        .action //get action
+
+  this[action].apply(this,[operand])
+    
+   }
 
 
+  map_memory_offset(address) {
+    this.memoryPointer = address;
+    console.log(this.memoryPointer) 
+  
+   }
 
 }
 
