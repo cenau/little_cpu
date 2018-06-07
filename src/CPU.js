@@ -8,8 +8,8 @@ class CPU {
     this.pc=0;
     this.registers = {
         general: [
-            {name:"A",value:0}
-            {name:"B",value:0}
+            {name:"A",value:0},
+            {name:"B",value:0},
                      
                 ],
         equality: [
