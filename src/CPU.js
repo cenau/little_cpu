@@ -40,6 +40,8 @@ class CPU {
 
         ]
     }
+
+    this.loadFromProgROM();
   }
 
   step() {
@@ -117,6 +119,49 @@ class CPU {
     register(name){
       return this.registers.general.filter(register => register.name==name)[0] 
 }
+
+//load program data
+    loadFromProgROM(){
+  //letters
+  this.memory[0x7F] = 0b10000001
+  this.memory[0x80] = 0b10000001
+  this.memory[0x81] = 0b10000001
+  this.memory[0x82] = 0b11111111
+  this.memory[0x83] = 0b11111111
+  this.memory[0x84] = 0b10000001
+  this.memory[0x85] = 0b10000001
+  this.memory[0x86] = 0b10000001
+
+
+  this.memory[0x8F] = 0b11111111
+  this.memory[0x90] = 0b00011000
+  this.memory[0x91] = 0b00011000
+  this.memory[0x92] = 0b00011000
+  this.memory[0x93] = 0b00011000
+  this.memory[0x94] = 0b00011000
+  this.memory[0x95] = 0b00011000
+  this.memory[0x96] = 0b11111111
+
+  //prog 
+  this.memory[0x0] = 0x0 //to get over 1st step bug
+  
+  //set A to where the second letter starts
+  this.memory[0x1] = 0xF 
+  this.memory[0x2] = 0x8F
+
+  // store 0x8F from A into 0XFF
+  this.memory[0x3] = 0x2
+  this.memory[0x4] = 0xFF
+
+  //set A to 0x1 ( the map-offset command in the display)
+  this.memory[0x5] = 0xF
+  this.memory[0x6] = 0x1
+
+  //tell 0x0 (the display) to offset to 0xFF, where 0x8F is stored
+  this.memory[0x7] = 0xE
+  this.memory[0x8] = 0xFF
+
+    }
 }
 
 

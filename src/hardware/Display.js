@@ -12,7 +12,15 @@ class Display {
         ]
     }
   }
-  
+ 
+  reset(){
+    this.memory = new Array(64).fill(0);
+    this.rawMemory = new Array(8).fill(0);
+    this.address = 0x0
+    this.memoryPointer = 0x7F
+    this.draw()
+
+  }
   init(ctx){
     this.context = ctx;
   }
