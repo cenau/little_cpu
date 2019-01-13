@@ -2,7 +2,7 @@
   "name": "little_CPU",
   "version": "0.0.1",
   "description": "little CPU",
-  "main": "",
+  "main": "src/CPU.js",
   "dependencies": {
     "budo": "^10.0.3",
     "hogan.js": "^3.0.2",
