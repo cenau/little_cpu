@@ -61,7 +61,6 @@ class Display {
 
   map_memory_offset(address) {
     this.memoryPointer = address;
-    console.log(this.memoryPointer) 
   
    }
 

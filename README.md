@@ -37,13 +37,12 @@ DIV	0x6	1	divide value at ADDRESS by REGISTER A
 CMP	0x7	1	compare value at ADDRESS with REGISTER A. Sets the EQ (equality) bits 
 JMP	0x8	2	jump to memory address at the value in REGISTER A
 JE	0x9	2	jump if equal ( ie EQ == 1)
-JNE	0xA	2	jump if not equal
-JG	0xB	2	jump if greater (ie, EQ ==0 AND EM == 1)
-JL	0xC	2	jump if less (ie, EQ == 0 AND EM == 0)
-IN 	0xD	3       get value at HARDWARE COMMAND (in ADDRESS) from hardware at HARDWARE ADDRESS ( in REGISTER A )
-OUT	0XE	3
-LIT	0XF	4  	set REGISTER A to VALUE 
-
+JG	0xA	2	jump if greater (ie, EQ ==0 AND EM == 1)
+JL	0xB	2	jump if less (ie, EQ == 0 AND EM == 0)
+IN 	0xC	3       get value at HARDWARE COMMAND (in ADDRESS) from hardware at HARDWARE ADDRESS ( in REGISTER A )
+OUT	0XD	3
+LIT	0XE	4  	set REGISTER A to VALUE 
+TBD	0XF	  	 
 
 ##build stuff
 source goes in `src`

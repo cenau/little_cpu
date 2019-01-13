@@ -7,6 +7,9 @@
 			{{#mainCpu.registers.general}}
 				<p>REGISTER {{name}}:{{#wrapped}}{{value}}{{/wrapped}}</p>
 			{{/mainCpu.registers.general}}
+			{{#mainCpu.registers.equality}}
+				<p>REGISTER {{name}}:{{#wrapped}}{{value}}{{/wrapped}}</p>
+			{{/mainCpu.registers.equality}}
 
 		</div>
 		<div class = "memory">

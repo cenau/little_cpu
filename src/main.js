@@ -4,6 +4,10 @@ import debug_pane_template from './debug_pane_template.mustache';
 import cpu from './CPU'
 import display from './hardware/Display'
 
+import loop from 'raf-loop'
+
+
+
 const mainCpu = new cpu();
 const mainDisplay = new display(mainCpu);
 
@@ -14,13 +18,31 @@ import css from './styles.css';
   testButton.innerHTML = "Step"
   const resetButton = document.createElement("BUTTON");
   resetButton.innerHTML = "Reset"
+  const runButton = document.createElement("BUTTON");
+  runButton.innerHTML = "RUN"
+  const pauseButton = document.createElement("BUTTON");
+  pauseButton.innerHTML = "PAUSE"
 
+    window.lasttime =0;
+  const engine = loop(function(dt) {
+    // delta time in milliseconds
+    window.lasttime += dt
+    if ( window.lasttime > 100){
+     window.lasttime = 0
+      mainCpu.step();
+     mainDisplay.step(); 
+    update_debug()
+    }
+  })
 
 document.addEventListener('DOMContentLoaded', () => {
   startApp();
 });
 
 function startApp() {
+
+
+
   document.body.innerHTML = template.render({});
   
   document.getElementById("debug_pane").innerHTML = debug_pane_template.render({ header: 'It Lives!' });
@@ -30,10 +52,21 @@ function startApp() {
   mainDisplay.init(ctx);
 
 
-  resetButton.onclick = function(){mainCpu.reset()
+  resetButton.onclick = function(){
   
+  engine.stop();
+  mainCpu.reset()
   mainDisplay.reset() 
   update_debug()
+  }
+
+  runButton.onclick = function(){
+    engine.start();  
+  }
+  pauseButton.onclick = function(){
+    
+    engine.stop();
+    update_debug()
   }
 
   testButton.onclick = function(){mainCpu.step()
@@ -79,6 +112,8 @@ function update_debug() {
    }
  })
 
+  document.body.getElementsByClassName("registers")[0].appendChild(runButton)
+  document.body.getElementsByClassName("registers")[0].appendChild(pauseButton)
   document.body.getElementsByClassName("registers")[0].appendChild(testButton)
   document.body.getElementsByClassName("registers")[0].appendChild(resetButton);
 
