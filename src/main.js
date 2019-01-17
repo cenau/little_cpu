@@ -7,14 +7,17 @@ import outT from './hardware/OUTtester'
 
 import loop from 'raf-loop'
 
+import testRom from './testRom'
 
 
-const mainCpu = new cpu();
+
+
+const mainCpu = new cpu(testRom);
+
 const mainDisplay = new display(mainCpu);
 const outT1 = new outT(mainCpu);
 console.log(outT1)
 import css from './styles.css';
-
 
   const testButton = document.createElement("BUTTON");
   testButton.innerHTML = "Step"
