@@ -3,6 +3,7 @@ import template from './template.mustache';
 import debug_pane_template from './debug_pane_template.mustache';
 import cpu from './CPU'
 import display from './hardware/Display'
+import outT from './hardware/OUTtester'
 
 import loop from 'raf-loop'
 
@@ -10,7 +11,8 @@ import loop from 'raf-loop'
 
 const mainCpu = new cpu();
 const mainDisplay = new display(mainCpu);
-
+const outT1 = new outT(mainCpu);
+console.log(outT1)
 import css from './styles.css';
 
 
@@ -30,7 +32,9 @@ import css from './styles.css';
     if ( window.lasttime > 100){
      window.lasttime = 0
       mainCpu.step();
-     mainDisplay.step(); 
+     mainDisplay.step();
+      outT1.step();
+    //bit stupid, but make sure to add things to step further down as well... or make this more sensible (ie iterate array of things to step at both places...)
     update_debug()
     }
   })
@@ -71,6 +75,7 @@ function startApp() {
 
   testButton.onclick = function(){mainCpu.step()
  mainDisplay.step() 
+outT1.step()
   update_debug()
 
 }
