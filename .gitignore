@@ -1,6 +1,5 @@
 node_modules
 dist
-lib
 *.swp
 *.log
 .DS_Store
