@@ -1,4 +1,4 @@
-#Little CPU simulator
+# Little CPU simulator
 
 8 bit space for opcodes ( just using first 4 bits (16 opcodes) for now ) 
 8 bit ALU 
@@ -7,25 +7,29 @@
 2 x 8 bit general registers (A and B) 
 load/store design (everything operates on register A) 
 
-##notes on memory: 
+## notes on memory
+
 The value in REGISTER B selects which memory unit to address.
 
 The system _cannot_ write to the onboard EEPROM, an external programmer is required. This ensures the integrity of the system's program code.  
 
 External EEPROM units are available if additional progam space is needed or for storing data that will persist after a reboot.
 
-##notes on hardware:
+## notes on hardware
+
 The value in REGISTER B selects which hardware to address. The value in REGISTER A is the command to send to the hardware. The value in ADDRESS is the argument to send the the hardware. 
 
 0x0 and 0x1 are SPECIAL PORTS which share priveliged access to the CPU's Memory Units, and therefore can read and write directly to the MU's (Devices which implement this can only access _one_ MU at a time). This is typically used to map memory to display devices or data storage. 
 
-##command types
+## command types
+
 type 0 commands are OPCODE (8 bit) - they take no operands and produce no side effects
 type 1 commands are OPCODE (8 bit) and ADDRESS (8 bit)
 type 2 commands are OPCODE (8 bit) and use the value in REGISTER A as an operand
 type 3 commands are OPCODE (8 bit) and use the value in REGISTER A as HARDWARE ADDRESS and the value in ADDRESS as HARDWARE COMMAND ( so can address 256 pieces of hardware, and 256 things in each ) 
 
-##comamnds
+## comamnds
+
 command	opcode	type	description 
 NOP	0x0 	0	do nothing
 LOAD	0x1	1	load from ADDRESS into REGISTER A, and push previous REG A value to REG B
@@ -44,7 +48,8 @@ OUT	0XD	3
 LIT	0XE	4  	set REGISTER A to VALUE 
 TBD	0XF	  	 
 
-##build stuff
+## build stuff
+
 source goes in `src`
 
 `npm install` to install deps and dev deps 
